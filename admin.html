@@ -12,6 +12,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.all.min.js"></script>
     <title>Catalogo Funkopop</title>
   </head>
   <body>
@@ -52,47 +53,47 @@
       </section>
       <section>
         <div class="row">
-          <div class="col-10">
+          <div class="col-9">
             <h3>Tabla de Funkopop</h3>
           </div>
-          <div class="col-2">
+          <div class="col-1">
             <button
               class="btn btn-primary"
               id="btnAgregar"
-              data-bs-toggle="modal"
-              data-bs-target="#modalProducto"
             >
               Agregar
             </button>
           </div>
         </div>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Numero de Serie</th>
-              <th scope="col">Categoria</th>
-              <th scope="col">Descripcion</th>
-              <th scope="col">Imagen</th>
-              <th scope="col">Opciones</th>
-            </tr>
-          </thead>
-          <tbody id="tablaFunko">
-            <tr>
-              <th scope="row">1</th>
-              <td>Batman</td>
-              <td>Dc5485</td>
-              <td>DC</td>
-              <td>Caballero de la noche</td>
-              <td>sin imagen</td>
-              <td>
-                <button class="btn btn-warning">Editar</button>
-                <button class="btn btn-danger">Borrar</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Numero de Serie</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Imagen</th>
+                <th scope="col">Opciones</th>
+              </tr>
+            </thead>
+            <tbody id="tablaFunko">
+              <tr>
+                <th scope="row">1</th>
+                <td>Batman</td>
+                <td>Dc5485</td>
+                <td>DC</td>
+                <td>Caballero de la noche</td>
+                <td>sin imagen</td>
+                <td>
+                  <button class="btn btn-warning">Editar</button>
+                  <button class="btn btn-danger">Borrar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </main>
     <!-- Modal Funkopop -->
@@ -115,33 +116,63 @@
             ></button>
           </div>
           <div class="modal-body">
-              <form id='formFunkopop' onsubmit="agregarFunkopop(event)">
-                  <div class="mb-3">
-                      <label class="form-label">Codigo</label>
-                      <input type="text" id='codigo' class="form-control" placeholder="1">
-                  </div>
-                  <div class="mb-3">
-                      <label class="form-label">Nombre</label>
-                      <input type="text" id='nombre' class="form-control" placeholder="Batman">
-                  </div>
-                  <div class="mb-3">
-                      <label class="form-label">Numero de serie</label>
-                      <input type="text" id='numSerie' class="form-control" placeholder="DC86587">
-                  </div>
-                  <div class="mb-3">
-                      <label class="form-label">Categoria</label>
-                      <input type="text" id='categoria' class="form-control" placeholder="DC">
-                  </div>
-                  <div class="mb-3">
-                      <label class="form-label">Descripcion</label>
-                      <textarea id="descripcion" rows="3" class="form-control" placeholder="Caballero de la noche"></textarea>
-                  </div>
-                  <div class="mb-3">
-                      <label class="form-label">Imagen</label>
-                      <input type="text" id='imagen' class="form-control" placeholder="Agregar una imagen">
-                  </div>
-                  <button class="btn btn-primary" type="submit">Guardar</button>
-              </form>
+            <form id="formFunkopop" onsubmit="agregarFunkopop(event)">
+              <div class="mb-3">
+                <label class="form-label">Codigo</label>
+                <input
+                  type="text"
+                  id="codigo"
+                  class="form-control"
+                  placeholder="1"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input
+                  type="text"
+                  id="nombre"
+                  class="form-control"
+                  placeholder="Batman"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Numero de serie</label>
+                <input
+                  type="text"
+                  id="numSerie"
+                  class="form-control"
+                  placeholder="DC86587"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Categoria</label>
+                <input
+                  type="text"
+                  id="categoria"
+                  class="form-control"
+                  placeholder="DC"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Descripcion</label>
+                <textarea
+                  id="descripcion"
+                  rows="3"
+                  class="form-control"
+                  placeholder="Caballero de la noche"
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Imagen</label>
+                <input
+                  type="text"
+                  id="imagen"
+                  class="form-control"
+                  placeholder="Agregar una imagen"
+                />
+              </div>
+              <button class="btn btn-primary" type="submit">Guardar</button>
+            </form>
           </div>
         </div>
       </div>
