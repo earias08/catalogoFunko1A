@@ -12,6 +12,9 @@ btnAgregar.addEventListener('click', () => {
   modalFunko.show(); 
 })
 
+// buscar los datos del localstorage
+leerDatos();
+
 
 
 window.agregarFunkopop = function (event) {
@@ -56,4 +59,13 @@ function limpiarFormulario(){
   // aqui estamos reseteando los valores del formulario
   let formulario = document.getElementById('formFunkopop');
   formulario.reset();
+}
+
+function leerDatos(){
+  // leer datos del localstorage
+  if(localStorage.length > 0){
+    // traer datos del localstorage
+    let _listaFunkopop = JSON.parse(localStorage.getItem('listaFunkoKey'));
+    console.log(_listaFunkopop);
+  }
 }
