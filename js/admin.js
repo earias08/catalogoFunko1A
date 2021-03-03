@@ -1,21 +1,21 @@
 import { Funko } from "./funkoClass.js";
 
 let listaFunkopop = [];
-const modalFunko = new bootstrap.Modal(document.getElementById('modalProducto'));
+const modalFunko = new bootstrap.Modal(
+  document.getElementById("modalProducto")
+);
 
 // function agregarFunkopop(event){}
 
 // queremos que el boton agregar escuche el evento click
-let btnAgregar = document.getElementById('btnAgregar');
-btnAgregar.addEventListener('click', () => {
+let btnAgregar = document.getElementById("btnAgregar");
+btnAgregar.addEventListener("click", () => {
   // mostrar ventana modal
-  modalFunko.show(); 
-})
+  modalFunko.show();
+});
 
 // buscar los datos del localstorage
 leerDatos();
-
-
 
 window.agregarFunkopop = function (event) {
   // el objetivo de esta funcion es agregar un funkopop nuevo en localstorage
@@ -42,30 +42,61 @@ window.agregarFunkopop = function (event) {
   listaFunkopop.push(nuevoFunkopop);
   console.log(listaFunkopop);
   // guardar datos en localstorage
-  localStorage.setItem('listaFunkoKey', JSON.stringify(listaFunkopop));
+  localStorage.setItem("listaFunkoKey", JSON.stringify(listaFunkopop));
   // limpiar el formulario
   limpiarFormulario();
   // mostrar un mensaje al usuario
-  Swal.fire(
-    'Nuevo producto',
-    'El funkopop se agrego correctamente',
-    'success'
-  )
+  Swal.fire("Nuevo producto", "El funkopop se agrego correctamente", "success");
+  // llamar a leer datos
+  leerDatos();
   // cerrar la ventana modal
   modalFunko.hide();
 };
 
-function limpiarFormulario(){
+function limpiarFormulario() {
   // aqui estamos reseteando los valores del formulario
-  let formulario = document.getElementById('formFunkopop');
+  let formulario = document.getElementById("formFunkopop");
   formulario.reset();
 }
 
-function leerDatos(){
+function leerDatos() {
   // leer datos del localstorage
-  if(localStorage.length > 0){
+  if (localStorage.length > 0) {
     // traer datos del localstorage
-    let _listaFunkopop = JSON.parse(localStorage.getItem('listaFunkoKey'));
+    let _listaFunkopop = JSON.parse(localStorage.getItem("listaFunkoKey"));
     console.log(_listaFunkopop);
+    // si el arreglo listafunkopop esta vacio, le cargo los datos del localstorage
+    if (listaFunkopop.length === 0) {
+      listaFunkopop = _listaFunkopop;
+    }
+    // dibujar la tabla
+    dibujarTabla(_listaFunkopop);
+  }
+}
+
+function dibujarTabla(_listaFunkopop) {
+  // traer el padre de las filas
+  let tablaFunko = document.getElementById("tablaFunko");
+  // variable para trabajar codigo html
+  let filaFunko = "";
+  // limpiar los datos del tbody
+  tablaFunko.innerHTML = "";
+  // for(let i=0; i<_listaFunkopop.length; i++){}
+  for (let i in _listaFunkopop) {
+    // crear la fila
+    filaFunko = `<tr>
+  <th scope="row">${_listaFunkopop[i].codigo}</th>
+  <td>${_listaFunkopop[i].nombre}</td>
+  <td>${_listaFunkopop[i].numSerie}</td>
+  <td>${_listaFunkopop[i].categoria}</td>
+  <td>${_listaFunkopop[i].descripcion}</td>
+  <td>${_listaFunkopop[i].imagen}</td>
+  <td>
+    <button class="btn btn-warning">Editar</button>
+    <button class="btn btn-danger">Borrar</button>
+  </td>
+</tr>`;
+    // agregar la fila al elemento padre
+    tablaFunko.innerHTML += filaFunko;
   }
 }
