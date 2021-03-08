@@ -14,15 +14,15 @@ let modificarFunko = false;
 let btnAgregar = document.getElementById("btnAgregar");
 btnAgregar.addEventListener("click", () => {
   // mostrar ventana modal
+  limpiarFormulario();
   modalFunko.show();
 });
 
 // buscar los datos del localstorage
 leerDatos();
 
-window.agregarFunkopop = function (event) {
+function agregarFunkopop() {
   // el objetivo de esta funcion es agregar un funkopop nuevo en localstorage
-  event.preventDefault();
   console.log("estamos dentro de la funcion agregar funkopop");
   // traer los valores del formulario que ya se estan validados
 
@@ -54,12 +54,13 @@ window.agregarFunkopop = function (event) {
   leerDatos();
   // cerrar la ventana modal
   modalFunko.hide();
-};
+}
 
 function limpiarFormulario() {
   // aqui estamos reseteando los valores del formulario
   let formulario = document.getElementById("formFunkopop");
   formulario.reset();
+  modificarFunko= false;
 }
 
 function leerDatos() {
@@ -104,17 +105,17 @@ function dibujarTabla(_listaFunkopop) {
   }
 }
 
-window.eliminarFunkopop = function (boton){
+window.eliminarFunkopop = function (boton) {
   console.log(boton.id);
   Swal.fire({
-    title: 'Esta seguro de eliminar el funkopop',
+    title: "Esta seguro de eliminar el funkopop",
     text: "No puedes volver atras luego de este paso",
-    icon: 'warning',
+    icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Si',
-    cancelButtonText: 'Cancelar'
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Si",
+    cancelButtonText: "Cancelar",
   }).then((result) => {
     // if(true === true)
     if (result.isConfirmed) {
@@ -122,39 +123,58 @@ window.eliminarFunkopop = function (boton){
       // let funkopopFiltrados = listaFunkopop.filter(function (producto){
       //   return producto.codigo != boton.id
       // });
-      let funkopopFiltrados = listaFunkopop.filter(producto => producto.codigo != boton.id)
+      let funkopopFiltrados = listaFunkopop.filter(
+        (producto) => producto.codigo != boton.id
+      );
       console.log(funkopopFiltrados);
       // igualar los arreglos
-      listaFunkopop = funkopopFiltrados
+      listaFunkopop = funkopopFiltrados;
       // guardar los datos en Localstorage
-      localStorage.setItem('listaFunkoKey', JSON.stringify(listaFunkopop))
+      localStorage.setItem("listaFunkoKey", JSON.stringify(listaFunkopop));
       // llamar a la funcion leer datos
       leerDatos();
 
       Swal.fire(
-        'Producto borrado',
-        'El funkopop seleccionado fue eliminado',
-        'success'
-      )
+        "Producto borrado",
+        "El funkopop seleccionado fue eliminado",
+        "success"
+      );
     }
-  })
-}
+  });
+};
 
-window.preparDatosFunko = function(boton){
+window.preparDatosFunko = function (boton) {
   console.log(boton.id);
   // buscar el objeto del arreglo listaFunkopop
   // let funkoEncontrado = listaFunkopop.find( function (producto) {
   //   return producto.codigo === boton.id;
   // })
-  let funkoEncontrado = listaFunkopop.find( producto => producto.codigo === boton.id);
+  let funkoEncontrado = listaFunkopop.find(
+    (producto) => producto.codigo === boton.id
+  );
   console.log(funkoEncontrado);
   // cargar en el formulario todos los datos
-  document.getElementById('codigo').value = funkoEncontrado.codigo;
-  document.getElementById('nombre').value = funkoEncontrado.nombre;
-  document.getElementById('numSerie').value = funkoEncontrado.numSerie;
-  document.getElementById('categoria').value = funkoEncontrado.categoria;
-  document.getElementById('descripcion').value = funkoEncontrado.descripcion;
-  document.getElementById('imagen').value = funkoEncontrado.imagen;
+  document.getElementById("codigo").value = funkoEncontrado.codigo;
+  document.getElementById("nombre").value = funkoEncontrado.nombre;
+  document.getElementById("numSerie").value = funkoEncontrado.numSerie;
+  document.getElementById("categoria").value = funkoEncontrado.categoria;
+  document.getElementById("descripcion").value = funkoEncontrado.descripcion;
+  document.getElementById("imagen").value = funkoEncontrado.imagen;
+  // quiero modificar mi funkopop
+  modificarFunko = true;
   // mostrar la ventana modal
   modalFunko.show();
-}
+};
+
+window.guardarDatos = function (event) {
+  event.preventDefault();
+  console.log("desde la funcion guardar Datos");
+  // if(true === true)
+  if (modificarFunko) {
+    // modificar un funcopop existente
+    console.log("aqui deberia modificar el funko");
+  } else {
+    // agregar un nuevo funkopop
+    agregarFunkopop();
+  }
+};
