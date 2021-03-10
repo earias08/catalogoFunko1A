@@ -172,9 +172,38 @@ window.guardarDatos = function (event) {
   // if(true === true)
   if (modificarFunko) {
     // modificar un funcopop existente
-    console.log("aqui deberia modificar el funko");
+    modificarFunkoExistente();
   } else {
     // agregar un nuevo funkopop
     agregarFunkopop();
   }
 };
+
+function modificarFunkoExistente(){
+  // busco el objeto que quiero editar
+ 
+  let codigo = document.getElementById('codigo').value;
+  let nombre = document.getElementById('nombre').value;
+  let numSerie = document.getElementById('numSerie').value;
+  let categoria = document.getElementById('categoria').value;
+  let descripcion = document.getElementById('descripcion').value;
+  let imagen = document.getElementById('imagen').value;
+
+  for(let i in listaFunkopop){
+    if(listaFunkopop[i].codigo === codigo){
+      // actualizar los valores del objeto
+      listaFunkopop[i].nombre = nombre;
+      listaFunkopop[i].numSerie = numSerie;
+      listaFunkopop[i].categoria = categoria;
+      listaFunkopop[i].descripcion = descripcion;
+      listaFunkopop[i].imagen = imagen;
+    }
+  }
+  // guardar arreglo actualizado en localstorage
+  localStorage.setItem('listaFunkoKey', JSON.stringify(listaFunkopop));
+  // mostrar una alerta
+  Swal.fire("Producto modificado", "El funkopop se actualizo correctamente", "success");
+  modalFunko.hide();
+  // volver a dibujar la tabla
+  leerDatos();
+}
